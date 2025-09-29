@@ -1,0 +1,133 @@
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Calculadora de Talles - Happet Dogs</title>
+  <link rel="icon" type="image/png" href="logo.png" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #fefaf5;
+      color: #333;
+      padding: 20px;
+      max-width: 600px;
+      margin: auto;
+      text-align: center;
+    }
+    h1 {
+      color: #ff6d6d;
+    }
+    label {
+      display: block;
+      margin-top: 15px;
+      text-align: left;
+    }
+    input, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+    }
+    button {
+      margin-top: 20px;
+      background-color: #ff6d6d;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+    }
+    .resultado {
+      margin-top: 20px;
+      background-color: #fff;
+      padding: 15px;
+      border-radius: 10px;
+      border: 1px solid #ddd;
+    }
+    img.logo {
+      max-width: 150px;
+      margin-bottom: 20px;
+    }
+    a.boton-link {
+      display: inline-block;
+      margin-top: 15px;
+      padding: 10px 15px;
+      background-color: #49c5b6;
+      color: white;
+      text-decoration: none;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <img src="logo.png" alt="Happet Dogs" class="logo" />
+  <h1>Calculadora de Talles</h1>
+
+  <label for="producto">¿Qué estás buscando?</label>
+  <select id="producto">
+    <option value="arnes">Arnés</option>
+    <option value="pretal">Pretal</option>
+      <option value="pretal-agnes">Pretal Agnes</option>
+  </select>
+
+  <label for="edad">Edad (en semanas)</label>
+  <input type="number" id="edad" placeholder="Por ejemplo: 12" />
+
+  <label for="peso">Peso (kg)</label>
+  <input type="number" id="peso" step="0.1" placeholder="Por ejemplo: 3.5" />
+
+  <label for="pecho">Circunferencia de pecho (cm)</label>
+  <input type="number" id="pecho" step="0.1" placeholder="Por ejemplo: 42" />
+
+  <label for="cuello">Circunferencia de cuello (cm)</label>
+  <input type="number" id="cuello" step="0.1" placeholder="Por ejemplo: 28" />
+
+  <button onclick="calcularTalle()">Calcular talle</button>
+
+  <div class="resultado" id="resultado"></div>
+
+  <script>
+    function calcularTalle() {
+      const producto = document.getElementById('producto').value;
+      const pecho = parseFloat(document.getElementById('pecho').value);
+      const cuello = parseFloat(document.getElementById('cuello').value);
+      let talle = '';
+      let link = '';
+
+      if (producto === 'arnes') {
+        if (cuello <= 37 && pecho <= 46) {
+          talle = 'Talle S';
+        } else if (cuello <= 49 && pecho <= 56) {
+          talle = 'Talle M';
+        } else if (cuello <= 55 && pecho <= 74) {
+          talle = 'Talle L';
+        } else if (cuello <= 66 && pecho <= 84) {
+          talle = 'Talle XL';
+        }
+        link = 'https://happetdogs.com/paseo/arnes-tuco/';
+      } else if (producto === 'pretal') {
+        if (cuello <= 45 && pecho <= 46) {
+          talle = 'Talle S';
+        } else if (cuello <= 54 && pecho <= 70) {
+          talle = 'Talle M';
+        } else if (cuello <= 60 && pecho <= 80) {
+          talle = 'Talle L';
+        }
+        link = 'https://happetdogs.com/paseo/pretal-rene/';
+      }
+
+      let resultadoHTML = '';
+      if (talle) {
+        resultadoHTML = `<strong>Talle sugerido:</strong> ${talle}<br><a href="${link}" class="boton-link" target="_blank">Ver productos en este talle</a>`;
+      } else {
+        resultadoHTML = 'No encontramos un talle exacto para esos valores.';
+      }
+
+      document.getElementById('resultado').innerHTML = resultadoHTML;
+    }
+  </script>
+</body>
+</html>

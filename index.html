@@ -68,9 +68,10 @@
 
   <label for="producto">¿Qué estás buscando?</label>
   <select id="producto">
-    <option value="arnes">Arnés</option>
-    <option value="pretal">Pretal</option>
-  </select>
+  <option value="arnes">Arnés Tuco</option>
+  <option value="pretal">Pretal René</option>
+  <option value="pretal-agnes">Pretal Agnes</option>
+</select>
 
   <label for="edad">Edad (en semanas)</label>
   <input type="number" id="edad" placeholder="Por ejemplo: 12" />
@@ -86,47 +87,79 @@
 
   <button onclick="calcularTalle()">Calcular talle</button>
 
-  <div class="resultado" id="resultado"></div>
+  \1
+<div id="tabla-medidas" style="margin-top:12px"><img id="tabla-img" alt="Tabla de medidas" style="max-width:100%;height:auto;border-radius:12px;box-shadow:0 6px 16px rgba(0,0,0,.06)"></div>
 
-  <script>
-    function calcularTalle() {
-      const producto = document.getElementById('producto').value;
-      const pecho = parseFloat(document.getElementById('pecho').value);
-      const cuello = parseFloat(document.getElementById('cuello').value);
-      let talle = '';
-      let link = '';
+  
 
-      if (producto === 'arnes') {
-        if (cuello <= 37 && pecho <= 46) {
-          talle = 'Talle S';
-        } else if (cuello <= 49 && pecho <= 56) {
-          talle = 'Talle M';
-        } else if (cuello <= 55 && pecho <= 74) {
-          talle = 'Talle L';
-        } else if (cuello <= 66 && pecho <= 84) {
-          talle = 'Talle XL';
-        }
-        link = 'https://happetdogs.com/paseo/arnes-tuco/';
-      } else if (producto === 'pretal') {
-        if (cuello <= 45 && pecho <= 46) {
-          talle = 'Talle S';
-        } else if (cuello <= 54 && pecho <= 70) {
-          talle = 'Talle M';
-        } else if (cuello <= 60 && pecho <= 80) {
-          talle = 'Talle L';
-        }
-        link = 'https://happetdogs.com/paseo/pretal-rene/';
-      }
+    <section id="como-medir" style="margin:28px 0 12px">
+      <h3 style="font-family:inherit;margin:0 0 8px;font-size:20px">¿Cómo medir a mi perro?</h3>
+      <img src="como-medir.png" alt="¿Cómo medir a mi perro? — Guía" style="max-width:100%;height:auto;border-radius:16px;border:2px solid #e9e0f6"/>
+    </section>
+    
 
-      let resultadoHTML = '';
-      if (talle) {
-        resultadoHTML = `<strong>Talle sugerido:</strong> ${talle}<br><a href="${link}" class="boton-link" target="_blank">Ver productos en este talle</a>`;
-      } else {
-        resultadoHTML = 'No encontramos un talle exacto para esos valores.';
-      }
 
-      document.getElementById('resultado').innerHTML = resultadoHTML;
+
+
+<script>
+function calcularTalle() {
+  const producto = document.getElementById('producto').value;
+  const pecho = parseFloat(document.getElementById('pecho').value);
+  const cuello = parseFloat(document.getElementById('cuello').value);
+  let talle = '';
+  let link = '';
+  let tablaImg = '';
+
+  if (producto === 'arnes') {
+    // Arnés Tuco (según tabla)
+    if (cuello <= 37 && pecho <= 46) {
+      talle = 'Talle S (ancho 2 cm)';
+    } else if (cuello <= 49 && pecho <= 56) {
+      talle = 'Talle M (ancho 2 cm)';
+    } else if (cuello <= 55 && pecho <= 74) {
+      talle = 'Talle L (ancho 2.5 cm)';
+    } else if (cuello <= 66 && pecho <= 84) {
+      talle = 'Talle XL (ancho 2.5 cm)';
     }
-  </script>
+    link = 'https://happetdogs.com/paseo/arnes-tuco/';
+    tablaImg = 'tabla-arnes.png';
+  } else if (producto === 'pretal') {
+    // Pretal René (según tabla)
+    if (cuello >= 33 && cuello <= 45 && pecho >= 34 && pecho <= 46) {
+      talle = 'Talle S (ancho 15 mm)';
+    } else if (cuello >= 40 && cuello <= 54 && pecho >= 50 && pecho <= 70) {
+      talle = 'Talle M (ancho 19 mm)';
+    } else if (cuello >= 44 && cuello <= 60 && pecho >= 60 && pecho <= 80) {
+      talle = 'Talle L (ancho 25 mm)';
+    }
+    link = 'https://happetdogs.com/paseo/pretal-rene/';
+    tablaImg = 'tabla-pretal-rene.png';
+  } else if (producto === 'pretal-agnes') {
+    // Pretal Agnes (según tabla)
+    if (cuello >= 41 && cuello <= 63 && pecho >= 47 && pecho <= 64) {
+      talle = 'Talle S (ancho 3 cm)';
+    } else if (cuello >= 47 && cuello <= 78 && pecho >= 59 && pecho <= 71) {
+      talle = 'Talle M (ancho 3 cm)';
+    } else if (cuello >= 56 && cuello <= 81 && pecho >= 69 && pecho <= 87) {
+      talle = 'Talle L (ancho 3.5 cm)';
+    } else if (cuello >= 65 && cuello <= 104 && pecho >= 76 && pecho <= 97) {
+      talle = 'Talle XL (ancho 4 cm)';
+    }
+    link = 'https://happetdogs.com/paseo/pretal-agnes/';
+    tablaImg = 'tabla-pretal-agnes.png';
+  }
+
+  const res = document.getElementById('resultado');
+  const img = document.getElementById('tabla-img');
+
+  if (talle) {
+    res.innerHTML = `<strong>Talle sugerido:</strong> ${talle}<br><a href="${link}" class="boton-link" target="_blank">Ver productos en este talle</a>`;
+  } else {
+    res.innerHTML = 'No encontramos un talle exacto para esos valores. Revisá que la cinta esté bien ajustada (sin holgura).';
+  }
+  if (img && tablaImg) img.src = tablaImg;
+}
+</script>
+
 </body>
 </html>
